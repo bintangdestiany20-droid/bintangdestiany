@@ -1,0 +1,2515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopink - Makeup Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #ff6b9d;
+            --soft-pink: #ffc0cb;
+            --light-pink: #ffe0ec;
+            --dark-pink: #e91e63;
+            --gold: #ffd700;
+            --light-gold: #fff4e6;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #2d3436;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe0ec 0%, #ffffff 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(255, 107, 157, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            color: var(--gold);
+            font-size: 32px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid var(--light-pink);
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: var(--gray-light);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--dark-pink);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-action {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 50%;
+            background: var(--light-pink);
+        }
+
+        .header-action:hover {
+            background: var(--soft-pink);
+            transform: translateY(-2px);
+        }
+
+        .header-action i {
+            font-size: 20px;
+            color: var(--primary-pink);
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: var(--white);
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            border-top: 1px solid var(--light-pink);
+            padding: 10px 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-link:hover {
+            background: var(--light-pink);
+            color: var(--primary-pink);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 10px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-pink);
+            color: var(--primary-pink);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            background: linear-gradient(135deg, var(--soft-pink), var(--primary-pink));
+            border-radius: 20px;
+            padding: 60px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-btn {
+            background: var(--gold);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            background: url('https://picsum.photos/seed/makeuphero/400/400') center/cover;
+            border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-pink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--light-pink), var(--soft-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.2);
+        }
+
+        .category-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: var(--light-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary-pink);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card:hover .category-icon {
+            background: var(--primary-pink);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--white);
+            border: 2px solid var(--light-pink);
+            border-radius: 20px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-pink);
+            color: var(--white);
+            border-color: var(--primary-pink);
+        }
+
+        .sort-select {
+            padding: 10px 20px;
+            border: 2px solid var(--light-pink);
+            border-radius: 20px;
+            background: var(--white);
+            color: var(--dark);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--danger);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .product-badge.new {
+            background: var(--success);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            color: var(--gray);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            color: var(--gold);
+        }
+
+        .rating-count {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-current {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-pink);
+        }
+
+        .price-original {
+            font-size: 14px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-pink);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary-pink);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .product-gallery {
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .thumbnail.active, .thumbnail:hover {
+            border-color: var(--primary-pink);
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 20px 0;
+        }
+
+        .detail-brand {
+            color: var(--gray);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .detail-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .detail-rating {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-price {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--light-pink);
+            border-radius: 15px;
+        }
+
+        .price-detail-current {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-pink);
+        }
+
+        .price-detail-original {
+            font-size: 18px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: var(--danger);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .variant-section {
+            margin-bottom: 30px;
+        }
+
+        .variant-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .variant-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .variant-option {
+            padding: 10px 20px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .variant-option:hover, .variant-option.selected {
+            border-color: var(--primary-pink);
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-option:hover, .color-option.selected {
+            border-color: var(--primary-pink);
+            transform: scale(1.1);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--light-pink);
+            background: var(--white);
+            color: var(--primary-pink);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 15px 30px;
+            background: var(--white);
+            color: var(--primary-pink);
+            border: 2px solid var(--primary-pink);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .product-tabs {
+            margin-top: 40px;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 20px;
+            border-bottom: 2px solid var(--light-pink);
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 15px 0;
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-pink);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-pink);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .description-text {
+            line-height: 1.8;
+            color: var(--dark);
+        }
+
+        .review-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-pink);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .review-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .review-text {
+            color: var(--dark);
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* Recommended Products */
+        .recommended-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--light-pink);
+        }
+
+        .recommended-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+        }
+
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .recommended-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid var(--light-pink);
+        }
+
+        .recommended-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .recommended-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .recommended-info {
+            padding: 15px;
+        }
+
+        .recommended-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .recommended-price {
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100%;
+            background: var(--white);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            z-index: 3000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: var(--gray-light);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cart-quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid var(--light-pink);
+            background: var(--white);
+            color: var(--primary-pink);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .cart-remove {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            background: var(--gray-light);
+            border-top: 2px solid var(--light-pink);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .cart-total-price {
+            color: var(--primary-pink);
+            font-size: 24px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+            color: var(--white);
+            padding: 60px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: bottom 0.3s ease;
+            z-index: 4000;
+        }
+
+        .toast.show {
+            bottom: 30px;
+        }
+
+        .toast-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--success);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-message {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .product-detail {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-slide {
+                padding: 30px;
+            }
+            
+            .hero-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid var(--light-pink);
+            border-top: 3px solid var(--primary-pink);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-pink));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <span><i class="fas fa-shipping-fast"></i> Gratis Ongkir Minimal Rp 50.000</span>
+                <span><i class="fas fa-phone"></i> Hotline: 0812-3456-7890</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="#" class="logo">
+                        <i class="fas fa-sparkles"></i>
+                        Shopink
+                    </a>
+                    
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="Cari produk makeup impianmu...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div class="header-action" onclick="showToast('Login berhasil!')">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="header-action" onclick="toggleWishlist()">
+                            <i class="fas fa-heart"></i>
+                            <span class="badge" id="wishlistCount">0</span>
+                        </div>
+                        <div class="header-action" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge" id="cartCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav>
+            <div class="container">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-home"></i> Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Produk <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">Wajah</a>
+                            <a href="#" class="dropdown-item">Mata</a>
+                            <a href="#" class="dropdown-item">Bibir</a>
+                            <a href="#" class="dropdown-item">Alis</a>
+                            <a href="#" class="dropdown-item">Aksesoris</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Brand <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">Maybelline</a>
+                            <a href="#" class="dropdown-item">Wardah</a>
+                            <a href="#" class="dropdown-item">Emina</a>
+                            <a href="#" class="dropdown-item">Innisfree</a>
+                            <a href="#" class="dropdown-item">Fenty Beauty</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Promo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Flash Sale</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-slider">
+                <div class="hero-slide">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Pink Paradise Collection</h1>
+                        <p class="hero-subtitle">Temukan kecantikanmu dengan produk makeup terbaru</p>
+                        <button class="hero-btn">
+                            Belanja Sekarang <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class=img src="pink.jpg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kategori Produk</h2>
+                <p class="section-subtitle">Temukan produk makeup sesuai kebutuhanmu</p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-face-smile"></i>
+                    </div>
+                    <div class="category-name">Wajah</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="category-name">Mata</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-lips"></i>
+                    </div>
+                    <div class="category-name">Bibir</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <div class="category-name">Kuku</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <div class="category-name">Parfum</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-brush"></i>
+                    </div>
+                    <div class="category-name">Alat Makeup</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Produk Terlaris</h2>
+                <p class="section-subtitle">Produk pilihan yang sedang tren saat ini</p>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <button class="filter-btn active">Semua</button>
+                    <button class="filter-btn">Wajah</button>
+                    <button class="filter-btn">Mata</button>
+                    <button class="filter-btn">Bibir</button>
+                </div>
+                <select class="sort-select">
+                    <option>Urutkan: Terpopuler</option>
+                    <option>Harga: Terendah</option>
+                    <option>Harga: Tertinggi</option>
+                    <option>Rating: Tertinggi</option>
+                    <option>Terbaru</option>
+                </select>
+            </div>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-detail">
+                <div class="product-gallery">
+                    <img src="wardah.png" alt="Product" class="main-image" id="mainImage">
+                    <div class="thumbnail-list" id="thumbnailList">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+                <div class="product-details">
+                    <div class="detail-brand" id="detailBrand">BRAND</div>
+                    <h2 class="detail-name" id="detailName">Product Name</h2>
+                    <div class="detail-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-count">4.5 (234 ulasan)</span>
+                    </div>
+                    <div class="detail-price">
+                        <span class="price-detail-current" id="detailPrice">Rp 0</span>
+                        <span class="price-detail-original" id="detailOriginalPrice">Rp 0</span>
+                        <span class="discount-badge">-20%</span>
+                    </div>
+                    
+                    <div class="variant-section">
+                        <div class="variant-label">Pilih Warna</div>
+                        <div class="variant-options" id="colorOptions">
+                            <!-- Color options will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <span class="variant-label">Jumlah:</span>
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" class="quantity-input" id="quantityInput" value="1" min="1">
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="addToCartFromModal()">
+                            <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                        </button>
+                        <button class="btn-secondary" onclick="addToWishlistFromModal()">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="product-tabs">
+                        <div class="tab-nav">
+                            <button class="tab-btn active" onclick="switchTab('description')">Deskripsi</button>
+                            <button class="tab-btn" onclick="switchTab('reviews')">Ulasan</button>
+                            <button class="tab-btn" onclick="switchTab('shipping')">Pengiriman</button>
+                        </div>
+                        <div class="tab-content active" id="description">
+                            <p class="description-text">
+                                Produk makeup premium dengan formula yang ringan dan nyaman digunakan sepanjang hari. 
+                                Mengandung vitamin E dan SPF 15 untuk melindungi kulit dari sinar UV. 
+                                Tahan lama hingga 12 jam dan tersedia dalam berbagai pilihan warna yang sesuai untuk semua jenis kulit.
+                            </p>
+                        </div>
+                        <div class="tab-content" id="reviews">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">A</div>
+                                        <div>
+                                            <div class="reviewer-name">Andi Pratama</div>
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-date">2 hari yang lalu</div>
+                                </div>
+                                <p class="review-text">
+                                    Sangat puas dengan produk ini! Warnanya pigmented dan tahan lama. 
+                                    Harganya juga worth it untuk kualitas sebaik ini.
+                                </p>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">S</div>
+                                        <div>
+                                            <div class="reviewer-name">Siti Nurhaliza</div>
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-date">1 minggu yang lalu</div>
+                                </div>
+                                <p class="review-text">
+                                    Produk bagus, namun pengiriman agak lama. Overall satisfied!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="shipping">
+                            <p class="description-text">
+                                <strong>Pengiriman:</strong><br>
+                                • JNE: 2-3 hari kerja<br>
+                                • SiCepat: 1-2 hari kerja<br>
+                                • GoSend: Same day delivery<br>
+                                <br>
+                                <strong>Gratis Ongkir:</strong><br>
+                                Minimal pembelian Rp 50.000 untuk seluruh Indonesia
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Products -->
+                    <div class="recommended-section">
+                        <h3 class="recommended-title">Produk Serupa</h3>
+                        <div class="recommended-grid" id="recommendedGrid">
+                            <!-- Recommended products will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Keranjang Belanja</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="cart-total-price" id="cartTotal">Rp 0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">
+                Checkout <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tentang Shopink</h3>
+                    <p>Platform e-commerce makeup terpercaya dengan produk berkualitas dan harga terjangkau.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Layanan Pelanggan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bantuan</a></li>
+                        <li><a href="#">Cara Belanja</a></li>
+                        <li><a href="#">Pengiriman</a></li>
+                        <li><a href="#">Pengembalian</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Informasi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Dapatkan penawaran spesial dan info produk terbaru</p>
+                    <div style="margin-top: 15px;">
+                        <input type="email" placeholder="Email kamu" style="padding: 10px; border-radius: 5px; border: none; width: 100%; margin-bottom: 10px;">
+                        <button style="width: 100%; padding: 10px; background: var(--gold); color: white; border: none; border-radius: 5px; cursor: pointer;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shopink. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--gold);"></i> in Indonesia</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <span class="toast-message" id="toastMessage">Produk berhasil ditambahkan!</span>
+    </div>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Product Data dengan gambar makeup yang lebih relevan
+        const products = [
+            {
+                id: 1,
+                name: "Lip Matte Velvet Rose",
+                brand: "Wardah",
+                price: 75000,
+                originalPrice: 95000,
+                rating: 4.5,
+                reviews: 234,
+                image: "wardah.png",
+                badge: "Best Seller",
+                category: "Bibir",
+                colors: ["#FF69B4", "#FF1493", "#FFB6C1", "#FFC0CB"]
+            },
+            {
+                id: 2,
+                name: "Foundation Glow Perfect",
+                brand: "Maybelline",
+                price: 125000,
+                originalPrice: 150000,
+                rating: 4.8,
+                reviews: 567,
+                image: "maybelline.png",
+                badge: "New",
+                category: "Wajah",
+                colors: ["#F5DEB3", "#FFE4B5", "#FFDEAD", "#F0E68C"]
+            },
+            {
+                id: 3,
+                name: "Mascara Volume Pro",
+                brand: "Emina",
+                price: 55000,
+                originalPrice: 70000,
+                rating: 4.3,
+                reviews: 189,
+                image: "emina.jpg",
+                badge: "Sale",
+                category: "Mata",
+                colors: ["#000000", "#2C3E50"]
+            },
+            {
+                id: 4,
+                name: "Blush On Peachy",
+                brand: "Innisfree",
+                price: 95000,
+                originalPrice: 120000,
+                rating: 4.6,
+                reviews: 423,
+                image: "blush.jpg",
+                badge: "Best Seller",
+                category: "Wajah",
+                colors: ["#FFB6C1", "#FFC0CB", "#FFDAB9", "#FFE4E1"]
+            },
+            {
+                id: 5,
+                name: "Eyeshadow Palette Pink",
+                brand: "Fenty Beauty",
+                price: 350000,
+                originalPrice: 450000,
+                rating: 4.9,
+                reviews: 892,
+                image: "fenty.jpg",
+                badge: "Limited",
+                category: "Mata",
+                colors: ["#FF69B4", "#FFB6C1", "#FFC0CB", "#FFDAB9"]
+            },
+            {
+                id: 6,
+                name: "Eyebrow Pencil",
+                brand: "Wardah",
+                price: 45000,
+                originalPrice: 55000,
+                rating: 4.4,
+                reviews: 156,
+                image: "alis.png",
+                badge: "Sale",
+                category: "Alis",
+                colors: ["#654321", "#8B4513", "#A0522D", "#D2691E"]
+            },
+            {
+                id: 7,
+                name: "Setting Spray Dewy",
+                brand: "Dazzle Me",
+                price: 65000,
+                originalPrice: 80000,
+                rating: 4.5,
+                reviews: 298,
+                image: "spray.jpg",
+                badge: "New",
+                category: "Wajah",
+                colors: ["#E6E6FA", "#F0F8FF", "#F5F5DC"]
+            },
+            {
+                id: 8,
+                name: "Highlighter Golden",
+                brand: "Maybelline",
+                price: 85000,
+                originalPrice: 100000,
+                rating: 4.7,
+                reviews: 445,
+                image: "bling.jpg",
+                badge: "Best Seller",
+                category: "Wajah",
+                colors: ["#FFD700", "#FFA500", "#FFE4B5", "#FFFFE0"]
+            },
+            {
+                id: 9,
+                name: "Concealer Full Coverage",
+                brand: "NYX",
+                price: 110000,
+                originalPrice: 140000,
+                rating: 4.6,
+                reviews: 312,
+                image: "nyx.jpg",
+                badge: "New",
+                category: "Wajah",
+                colors: ["#F5DEB3", "#FFE4B5", "#FFDEAD", "#F0E68C"]
+            },
+            {
+                id: 10,
+                name: "Eyeliner Liquid Black",
+                brand: "Elf",
+                price: 65000,
+                originalPrice: 85000,
+                rating: 4.4,
+                reviews: 278,
+                image: "elf.jpg",
+                badge: "Sale",
+                category: "Mata",
+                colors: ["#000000", "#2C3E50", "#34495E"]
+            },
+            {
+                id: 11,
+                name: "Lip Gloss ",
+                brand: "Dior",
+                price: 720000,
+                originalPrice: 850000,
+                rating: 4.8,
+                reviews: 567,
+                image: "dior.jpg",
+                badge: "Premium",
+                category: "Bibir",
+                colors: ["#FF69B4", "#FFB6C1", "#FFC0CB", "#FFDAB9"]
+            },
+            {
+                id: 12,
+                name: "Face Powder Matte",
+                brand: "Make Over",
+                price: 95000,
+                originalPrice: 120000,
+                rating: 4.5,
+                reviews: 423,
+                image: "bedak.png",
+                badge: "Best Seller",
+                category: "Wajah",
+                colors: ["#F5DEB3", "#FFE4B5", "#FFDEAD", "#F0E68C"]
+            }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let currentProduct = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            updateCartCount();
+            updateWishlistCount();
+            
+            // Scroll to top button
+            window.addEventListener('scroll', function() {
+                const scrollTop = document.getElementById('scrollTop');
+                if (window.pageYOffset > 300) {
+                    scrollTop.classList.add('show');
+                } else {
+                    scrollTop.classList.remove('show');
+                }
+            });
+        });
+
+        // Load Products
+        function loadProducts() {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = createProductCard(product);
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Create Product Card
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <span class="product-badge ${product.badge === 'New' ? 'new' : ''}">${product.badge}</span>
+                <div class="product-actions">
+                    <button class="action-btn" onclick="quickAddToWishlist(${product.id})">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="action-btn" onclick="quickView(${product.id})">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <div class="product-brand">${product.brand}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-rating">
+                        <div class="stars">
+                            ${generateStars(product.rating)}
+                        </div>
+                        <span class="rating-count">(${product.reviews})</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="price-current">Rp ${formatPrice(product.price)}</span>
+                        <span class="price-original">Rp ${formatPrice(product.originalPrice)}</span>
+                    </div>
+                    <button class="add-to-cart" onclick="quickAddToCart(${product.id})">
+                        <i class="fas fa-shopping-cart"></i> Tambah
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Generate Stars
+        function generateStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            return stars;
+        }
+
+        // Format Price
+        function formatPrice(price) {
+            return price.toLocaleString('id-ID');
+        }
+
+        // Quick Add to Cart
+        function quickAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                addToCart(product);
+            }
+        }
+
+        // Add to Cart
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            updateCartCount();
+            updateCartSidebar();
+            showToast(`${product.name} ditambahkan ke keranjang!`);
+        }
+
+        // Quick Add to Wishlist
+        function quickAddToWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                addToWishlist(product);
+            }
+        }
+
+        // Add to Wishlist
+        function addToWishlist(product) {
+            if (!wishlist.find(item => item.id === product.id)) {
+                wishlist.push(product);
+                updateWishlistCount();
+                showToast(`${product.name} ditambahkan ke wishlist!`);
+            } else {
+                showToast('Produk sudah ada di wishlist!');
+            }
+        }
+
+        // Quick View
+        function quickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                showProductDetail(product);
+            }
+        }
+
+        // Show Product Detail
+        function showProductDetail(product) {
+            currentProduct = product;
+            document.getElementById('detailBrand').textContent = product.brand;
+            document.getElementById('detailName').textContent = product.name;
+            document.getElementById('detailPrice').textContent = `Rp ${formatPrice(product.price)}`;
+            document.getElementById('detailOriginalPrice').textContent = `Rp ${formatPrice(product.originalPrice)}`;
+            document.getElementById('mainImage').src = product.image;
+            
+            // Load thumbnails dengan gambar makeup yang relevan
+            const thumbnailList = document.getElementById('thumbnailList');
+            thumbnailList.innerHTML = '';
+            const thumbnailSeeds = [
+                `${product.image.split('/')[4].split('/')[0]}-1`,
+                `${product.image.split('/')[4].split('/')[0]}-2`,
+                `${product.image.split('/')[4].split('/')[0]}-3`,
+                `${product.image.split('/')[4].split('/')[0]}-4`
+            ];
+            
+            thumbnailSeeds.forEach((seed, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = `https://picsum.photos/seed/${seed}/80/80`;
+                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                thumb.onclick = function() {
+                    document.getElementById('mainImage').src = this.src.replace('/80/80', '/500/500');
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                };
+                thumbnailList.appendChild(thumb);
+            });
+            
+            // Load color options
+            const colorOptions = document.getElementById('colorOptions');
+            colorOptions.innerHTML = '';
+            product.colors.forEach(color => {
+                const colorOption = document.createElement('div');
+                colorOption.className = 'color-option';
+                colorOption.style.backgroundColor = color;
+                colorOption.onclick = function() {
+                    document.querySelectorAll('.color-option').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                };
+                colorOptions.appendChild(colorOption);
+            });
+            
+            // Load recommended products
+            loadRecommendedProducts(product);
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        // Load Recommended Products
+        function loadRecommendedProducts(currentProduct) {
+            const recommendedGrid = document.getElementById('recommendedGrid');
+            recommendedGrid.innerHTML = '';
+            
+            // Get products from same category, excluding current product
+            const recommended = products
+                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+                .slice(0, 4);
+            
+            recommended.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'recommended-card';
+                card.onclick = () => {
+                    closeModal();
+                    setTimeout(() => showProductDetail(product), 300);
+                };
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="recommended-image">
+                    <div class="recommended-info">
+                        <div class="recommended-name">${product.name}</div>
+                        <div class="recommended-price">Rp ${formatPrice(product.price)}</div>
+                    </div>
+                `;
+                recommendedGrid.appendChild(card);
+            });
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // Switch Tab
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const input = document.getElementById('quantityInput');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantityInput');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        // Add to Cart from Modal
+        function addToCartFromModal() {
+            if (currentProduct) {
+                const quantity = parseInt(document.getElementById('quantityInput').value);
+                const existingItem = cart.find(item => item.id === currentProduct.id);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        ...currentProduct,
+                        quantity: quantity
+                    });
+                }
+                updateCartCount();
+                updateCartSidebar();
+                closeModal();
+                showToast(`${currentProduct.name} ditambahkan ke keranjang!`);
+            }
+        }
+
+        // Add to Wishlist from Modal
+        function addToWishlistFromModal() {
+            if (currentProduct) {
+                addToWishlist(currentProduct);
+            }
+        }
+
+        // Toggle Cart
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('active');
+            updateCartSidebar();
+        }
+
+        // Update Cart Sidebar
+        function updateCartSidebar() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 40px;">Keranjang belanja kosong</p>';
+                cartTotal.textContent = 'Rp 0';
+            } else {
+                cartItems.innerHTML = '';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">Rp ${formatPrice(item.price)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="cart-quantity-btn" onclick="updateCartQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="cart-quantity-btn" onclick="updateCartQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="cart-remove" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                    total += item.price * item.quantity;
+                });
+                
+                cartTotal.textContent = `Rp ${formatPrice(total)}`;
+            }
+        }
+
+        // Update Cart Quantity
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartCount();
+                    updateCartSidebar();
+                }
+            }
+        }
+
+        // Remove from Cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartCount();
+            updateCartSidebar();
+            showToast('Produk dihapus dari keranjang');
+        }
+
+        // Update Cart Count
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Update Wishlist Count
+        function updateWishlistCount() {
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+        }
+
+        // Toggle Wishlist
+        function toggleWishlist() {
+            showToast('Wishlist feature coming soon!');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Keranjang belanja kosong!');
+            } else {
+                showToast('Redirecting to checkout...');
+                // Implement checkout logic here
+            }
+        }
+
+        // Show Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                const filtered = products.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) || 
+                    p.brand.toLowerCase().includes(searchTerm)
+                );
+                
+                if (filtered.length > 0) {
+                    const productGrid = document.getElementById('productGrid');
+                    productGrid.innerHTML = '';
+                    filtered.forEach(product => {
+                        const productCard = createProductCard(product);
+                        productGrid.appendChild(productCard);
+                    });
+                    showToast(`Found ${filtered.length} products`);
+                } else {
+                    showToast('No products found');
+                }
+            }
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.textContent;
+                if (filter === 'Semua') {
+                    loadProducts();
+                } else {
+                    const filtered = products.filter(p => p.category === filter);
+                    const productGrid = document.getElementById('productGrid');
+                    productGrid.innerHTML = '';
+                    filtered.forEach(product => {
+                        const productCard = createProductCard(product);
+                        productGrid.appendChild(productCard);
+                    });
+                }
+            });
+        });
+
+        // Sort functionality
+        document.querySelector('.sort-select').addEventListener('change', function() {
+            const sortBy = this.value;
+            let sorted = [...products];
+            
+            switch(sortBy) {
+                case 'Harga: Terendah':
+                    sorted.sort((a, b) => a.price - b.price);
+                    break;
+                case 'Harga: Tertinggi':
+                    sorted.sort((a, b) => b.price - a.price);
+                    break;
+                case 'Rating: Tertinggi':
+                    sorted.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'Terbaru':
+                    sorted.reverse();
+                    break;
+            }
+            
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+            sorted.forEach(product => {
+                const productCard = createProductCard(product);
+                productGrid.appendChild(productCard);
+            });
+        });
+    </script>
+</body>
+</html>
